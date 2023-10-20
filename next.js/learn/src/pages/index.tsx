@@ -25,11 +25,8 @@ class Home extends React.Component {
             ip: "IP Address",
             count: 'Count',
             timeout: "Timeout", 
+            retVal: "0",
         };
-    }
-
-    fetchIPPing = () => {
-        console.log("hello");
     }
 
     handleClick = () => {
@@ -56,6 +53,13 @@ class Home extends React.Component {
             hit: false,
             timeout: event.target.value,
         });
+    }
+
+    fetchIPPing = () => {
+        console.log("Hello")
+        fetch("http://localhost:8000")
+            .then(res => res.json())
+            .then( data => console.log(data));
     }
 
     render(){
@@ -92,7 +96,7 @@ class Home extends React.Component {
                         />
                     </label>
                     <button onClick={this.handleClick}>Ping</button>
-                    {this.state.hit && (<h1>{this.state.ip} {this.state.count} {this.state.timeout}</h1>)}
+                    {this.state.hit && (<h1>{this.state.retVal}</h1>)}
                 </div>
             </>
         );
