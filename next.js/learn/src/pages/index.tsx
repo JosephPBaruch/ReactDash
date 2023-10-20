@@ -57,7 +57,7 @@ class Home extends React.Component {
 
     fetchIPPing = () => {
         console.log("Hello")
-        fetch("http://localhost:8000")
+        fetch("http://localhost:8000" + "/?name=Joe")
             .then(res => res.json())
             .then( data => console.log(data));
     }

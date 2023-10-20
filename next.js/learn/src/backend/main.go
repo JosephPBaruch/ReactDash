@@ -10,6 +10,9 @@ import (
 
 func main() {
 	handler := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		paramValue := req.URL.Query().Get("name")
+        log.Println(paramValue)
+
 		resp := []byte(`{"status": "ok"}`)
 		rw.Header().Set("Access-Control-Allow-Origin", "*")
 		rw.Header().Set("Content-Type", "application/json")
