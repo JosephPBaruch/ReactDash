@@ -56,9 +56,16 @@ class Home extends React.Component {
     }
 
     fetchIPPing = () => {
-        console.log("Hello")
-        fetch("http://localhost:8000" + "/?name=Joe")
-            .then(res => res.json())
+        //fetch("http://localhost:8001", {
+          //  method: "PUT" ,
+           // body: JSON.stringify(this.state.ip),
+        //})
+        fetch("http://localhost:8000" + "/?ip=" + this.state.ip + "&count=" + this.state.count + "&timeout=" + this.state.timeout )
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                this.setState({retVal: data.id, });
+            })
             .then( data => console.log(data));
     }
 
