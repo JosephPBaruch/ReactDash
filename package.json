@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "go": "nodemon --watch './**/*.go' --signal SIGTERM --exec 'go' run src/backend/main.go",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

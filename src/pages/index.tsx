@@ -22,17 +22,14 @@ class Home extends React.Component {
         super(props);
         this.state = {
             hit: false,
-            ip: "IP Address",
-            count: 'Count',
-            timeout: "Timeout", 
+            ip: "127.0.0.1",
+            count: "3",
+            timeout: "6", 
             retVal: "0",
         };
     }
 
     handleClick = () => {
-        this.setState({
-            hit: true, 
-        });
         this.fetchIPPing();
     }
 
@@ -56,17 +53,19 @@ class Home extends React.Component {
     }
 
     fetchIPPing = () => {
-        //fetch("http://localhost:8001", {
-          //  method: "PUT" ,
-           // body: JSON.stringify(this.state.ip),
-        //})
-        fetch("http://localhost:8000" + "/?ip=" + this.state.ip + "&count=" + this.state.count + "&timeout=" + this.state.timeout )
+        fetch("http://localhost:8000/trace" + 
+            "?ip=" + this.state.ip 
+            //"&count=" + this.state.count + 
+            //"&timeout=" + this.state.timeout 
+        )
             .then(res => {
                 return res.json();
             }).then(data => {
-                this.setState({retVal: data.id, });
-            })
-            .then( data => console.log(data));
+                this.setState({
+                    retVal: data, 
+                    hit: true, 
+                });
+            });
     }
 
     render(){
