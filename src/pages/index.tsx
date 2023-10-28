@@ -26,13 +26,19 @@ class Home extends React.Component {
             count: "3",
             timeout: "6", 
             retVal: "0",
+            tcpHit: false,
+            tcpIP: "127.0.0.1", 
+            tcpCount: "3",
+            tcpReturn: "Nothing",
         };
     }
 
     handleClick = () => {
         this.fetchIPPing();
     }
-
+    handleTcpClick = () => {
+        this.fetchTCP();
+    }
     handleIPChange = (event) => {
         this.setState({
             hit: false,
@@ -51,12 +57,24 @@ class Home extends React.Component {
             timeout: event.target.value,
         });
     }
+    handleTcpIP = (event) => {
+        this.setState({
+            tcpHit: false,
+            tcpIP: event.target.value,
+        });
+    }
+    handleTcpCount  = (event) => {
+        this.setState({
+            tcpHit: false,
+            tcpCount: event.target.value,
+        });
+    }
 
     fetchIPPing = () => {
-        fetch("http://localhost:8000/trace" + 
-            "?ip=" + this.state.ip 
-            //"&count=" + this.state.count + 
-            //"&timeout=" + this.state.timeout 
+        fetch("http://localhost:8000/ping" + 
+            "?ip=" + this.state.ip + 
+            "&count=" + this.state.count + 
+            "&timeout=" + this.state.timeout 
         )
             .then(res => {
                 return res.json();
@@ -64,6 +82,22 @@ class Home extends React.Component {
                 this.setState({
                     retVal: data, 
                     hit: true, 
+                });
+            });
+    }
+
+    fetchTCP = () => {
+        fetch("http://localhost:8000/tcp" + 
+            "?ip=" + this.state.tcpIP +
+            "&count=" + this.state.tcpCount  
+        )
+            .then(res => {
+                return res.json();
+            }).then(data => {
+                console.log(data);
+                this.setState({
+                    tcpReturn: data.id, 
+                    tcpHit: true, 
                 });
             });
     }
@@ -103,6 +137,27 @@ class Home extends React.Component {
                     </label>
                     <button onClick={this.handleClick}>Ping</button>
                     {this.state.hit && (<h1>{this.state.retVal}</h1>)}
+                </div>
+                <div id="TCP" styles={side}>
+                    <h2>TCP Check</h2>
+                    <label style={labelStyles}>
+                        <input
+                            style={ipInput}
+                            type="text"
+                            value={this.state.tcpIP} 
+                            onChange={this.handleTcpIP}
+                        />
+                    </label>
+                    <label  style={labelStyles}>
+                        <input
+                            style={inp}
+                            type="text"
+                            value={this.state.tcpCount} 
+                            onChange={this.handleTcpCount}
+                        />
+                    </label>
+                    <button onClick={this.handleTcpClick}>Check</button>
+                    {this.state.tcpHit && (<h1>{this.state.tcpReturn}</h1>)}
                 </div>
             </>
         );

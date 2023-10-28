@@ -18,6 +18,11 @@ type Trace struct {
 	IP    string `json:"id"`
 }
 
+type TCP struct {
+    IP    string `json:"id"`
+	COUNT string `json:"count"`
+}
+
 func main() {
 	http.HandleFunc("/ping", func(w http.ResponseWriter, req *http.Request) {
 		response := ""
@@ -58,6 +63,28 @@ func main() {
 
 		user := Trace{
 			IP:   string(out),
+		}
+		
+		json, err := json.Marshal(user)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(json)
+	})
+
+	http.HandleFunc("/tcp", func(w http.ResponseWriter, req *http.Request) {
+		tcpIP := req.URL.Query().Get("ip")
+		tcpCount := req.URL.Query().Get("count")
+
+		//out, _ := exec.Command("sudo", "tcptraceroute", traceIP ).Output()
+
+		user := TCP{
+			IP:   tcpIP,
+			COUNT: tcpCount,
 		}
 		
 		json, err := json.Marshal(user)
