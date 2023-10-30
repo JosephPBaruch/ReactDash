@@ -9,9 +9,8 @@ import (
 )
 
 type Ping struct {
-    IP    string `json:"id"`
-	COUNT string `json:"count"`
-	TIME  string `json:"time"`
+	Response string `json:"response"`
+	Body     string `json:"packets"`
 }
 
 type Trace struct {
@@ -25,22 +24,21 @@ type TCP struct {
 
 func main() {
 	http.HandleFunc("/ping", func(w http.ResponseWriter, req *http.Request) {
-		response := ""
+		response := "a"
 		pingIP := req.URL.Query().Get("ip")
 		pingCount := req.URL.Query().Get("count")
 		pingTime := req.URL.Query().Get("timeout")
 
 		out, _ := exec.Command("ping", "-c " + pingCount, "-t " + pingTime, pingIP ).Output()
-		if strings.Contains(string(out), "100.0% packet loss") {
-			response = "Fail"
-		} else {
+		if strings.Contains(string(out), " 0% packet loss") {
 			response = "Succeed"
+		} else {
+			response = "Fail"
 		}
 
 		user := Ping{
-			IP:   response,
-			COUNT: pingCount, 
-			TIME:  pingTime, 
+			Response: response, 
+			Body: string(out),
 		}
 		
 		json, err := json.Marshal(user)
