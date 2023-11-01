@@ -17,6 +17,19 @@ import React from 'react';
         width: '50px',
     };
 
+    const container = {
+        display: 'grid',
+        gridTemplateColumns: 'auto auto',
+        gridGap: '10px'
+      };
+    
+      const item = {
+        backgroundColor: '#ddd',
+        padding: '20px',
+        fontSize: '30px',
+        textAlign: 'center'
+      };
+
 class Home extends React.Component {
     constructor(props){
         super(props);
@@ -158,6 +171,13 @@ class Home extends React.Component {
                     </label>
                     <button onClick={this.handleTcpClick}>Check</button>
                     {this.state.tcpHit && (<h1>{this.state.tcpReturn}</h1>)}
+                    
+                    <div className="container">
+                        <div className="item">1</div>
+                        <div className="item">2</div>
+                        <div className="item">3</div>
+                        <div className="item">4</div>
+                    </div>
                 </div>
             </>
         );
