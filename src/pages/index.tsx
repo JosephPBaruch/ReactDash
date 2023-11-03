@@ -26,7 +26,7 @@ import React from 'react';
     const itemRight = {
         backgroundColor: 'grey',
         width: '50px',
-        height: '10px',
+        height: '5px',
         borderColor: "black",
         boarderWidth: "2px",
         padding: '10px',
@@ -37,7 +37,7 @@ import React from 'react';
     const itemLeft = {
         backgroundColor: 'grey',
         width: '50px',
-        height: '10px',
+        height: '5px',
         borderColor: 'black',
         boarderWidth: "2px",
         padding: '10px',
@@ -46,21 +46,77 @@ import React from 'react';
         float: "left", 
         
     };
-      const inputLeft = {
+
+    const itemCenter = {
         backgroundColor: 'grey',
         width: '50px',
-        height: '10px',
-        borderColor: 'black',
+        height: '5px',
+        borderColor: "black",
         boarderWidth: "2px",
+        padding: '10px',
+        fontSize: '10px',
+        textAlign: 'left',
+        float: 'center',
+    };
+      const inputLeft = {
+        backgroundColor: 'grey',
+        //width: '50px',
+        height: '20px',
+        //borderColor: 'black',
+        //boarderWidth: "1px",
+        boarder: "none",
         fontSize: '10px',
         textAlign: 'left',
         float: "left", 
         padding: "0.2em", 
         boxSizing: "border-box",
-        //width: "100%",
+        width: "100%",
+       outline: "none",
+        highlight: "red",
+        //border: "2px solid #007bff", /* Change the border color to blue when focused */
+        //outline: "none",
+        
+    };
+    const inputRight = {
+        backgroundColor: 'grey',
+        //width: '50px',
+        height: '20px',
+        boarder: "none",
+        //borderColor: 'black',
+        //boarderWidth: "1px",
+        fontSize: '10px',
+        textAlign: 'left',
+        float: "right", 
+        padding: "0.2em", 
+        boxSizing: "border-box",
+        width: "100%",
         
     };
 
+    const inputCenter = {
+        backgroundColor: 'grey',
+        //width: '50px',
+        height: '20px',
+        boarder: "none",
+        //borderColor: 'black',
+        //boarderWidth: "1px",
+        fontSize: '10px',
+        textAlign: 'left',
+        float: "center", 
+        padding: "0.2em", 
+        boxSizing: "border-box",
+        width: "100%",
+        
+    };
+
+    const header = {
+        backgroundColor: "#212F3C",
+        textLeft: "2px",
+        color: "#85929E",
+        width: "200px", 
+        height: "20px", 
+        fontSize: "15px",
+    };
 
 class Home extends React.Component {
     constructor(props){
@@ -150,41 +206,40 @@ class Home extends React.Component {
     render(){
         return (
             <>
-                <Head>
+                <Head style={{backgroundColor: "#34495E"}}>
                     <title>Learning React</title>
                 </Head>
                 <h1>Diagnostics</h1>
-                <div id="pingIP" styles={side}>
-                    <h2>Ping IP</h2>
-                    <label style={labelStyles}>
-                        <input
-                            style={ipInput}
-                            type="text"
+                <div>
+                    <div style={header}><h3 style={{paddingLeft: "3px"}}>Ping IP</h3></div>
+                    <button onClick={this.handleClick} style={{float: "right"}}>Ping</button>
+                    <div style={{width: "270px", paddingBottom:"20px", paddingTop:"5px", }}>
+                        <div style={{width: "70px", float: "left"}}>
+                            <div style={itemLeft}>IP</div>
+                            <input type="text"
                             value={this.state.ip} 
-                            onChange={this.handleIPChange}
-                        />
-                    </label>
-                    <label  style={labelStyles}>
-                        <input
-                            style={inp}
+                            onChange={this.handleIPChange}style={inputLeft}></input>
+                        </div>
+                        <div style={{width: "70px", float: "left"}}>
+                         <label style={itemCenter} >Count</label>
+                         <input 
                             type="text"
                             value={this.state.count} 
-                            onChange={this.handleCountChange}
-                        />
-                    </label>
-                    <label  style={labelStyles}>
-                        <input
-                            style={inp}
+                            onChange={this.handleCountChange} style={inputCenter}></input>  
+                        </div>
+                        <div style={{width: "70px", float: "left"}}>
+                         <label style={itemRight} >Timeout</label>
+                         <input 
                             type="text"
                             value={this.state.timeout} 
-                            onChange={this.handleTimeChange}
-                        />
-                    </label>
+                            onChange={this.handleTimeChange} style={inputRight}></input>  
+                        </div>
+                    </div>
                     <button onClick={this.handleClick}>Ping</button>
                     {this.state.hit && (<h1>{this.state.retVal}</h1>)}
                 </div>
-                <div id="TCP" styles={side}>
-                    <h2>TCP Check</h2>
+                <div>
+                <div style={header}><h3 style={{paddingLeft: "3px"}}>TCP Check</h3></div>
                     <label style={labelStyles}>
                         <input
                             style={ipInput}
@@ -203,17 +258,6 @@ class Home extends React.Component {
                     </label>
                     <button onClick={this.handleTcpClick}>Check</button>
                     {this.state.tcpHit && (<h1>{this.state.tcpReturn}</h1>)}
-                    
-                    <div style={{width: "180px"}}>
-                        <div>
-                            <label style={itemLeft}>IP</label>
-                            <label style={itemRight} >Port</label>
-                        </div>
-                        <div>
-                        <input style={inputLeft}></input>
-                        <input style={itemRight}></input>
-                        </div>
-                    </div>
                 </div>
             </>
         );
