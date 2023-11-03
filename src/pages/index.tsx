@@ -23,12 +23,44 @@ import React from 'react';
         gridGap: '10px'
       };
     
-      const item = {
-        backgroundColor: '#ddd',
-        padding: '20px',
-        fontSize: '30px',
-        textAlign: 'center'
-      };
+    const itemRight = {
+        backgroundColor: 'grey',
+        width: '50px',
+        height: '10px',
+        borderColor: "black",
+        boarderWidth: "2px",
+        padding: '10px',
+        fontSize: '10px',
+        textAlign: 'left',
+        float: 'right',
+    };
+    const itemLeft = {
+        backgroundColor: 'grey',
+        width: '50px',
+        height: '10px',
+        borderColor: 'black',
+        boarderWidth: "2px",
+        padding: '10px',
+        fontSize: '10px',
+        textAlign: 'left',
+        float: "left", 
+        
+    };
+      const inputLeft = {
+        backgroundColor: 'grey',
+        width: '50px',
+        height: '10px',
+        borderColor: 'black',
+        boarderWidth: "2px",
+        fontSize: '10px',
+        textAlign: 'left',
+        float: "left", 
+        padding: "0.2em", 
+        boxSizing: "border-box",
+        //width: "100%",
+        
+    };
+
 
 class Home extends React.Component {
     constructor(props){
@@ -172,11 +204,15 @@ class Home extends React.Component {
                     <button onClick={this.handleTcpClick}>Check</button>
                     {this.state.tcpHit && (<h1>{this.state.tcpReturn}</h1>)}
                     
-                    <div className="container">
-                        <div className="item">1</div>
-                        <div className="item">2</div>
-                        <div className="item">3</div>
-                        <div className="item">4</div>
+                    <div style={{width: "180px"}}>
+                        <div>
+                            <label style={itemLeft}>IP</label>
+                            <label style={itemRight} >Port</label>
+                        </div>
+                        <div>
+                        <input style={inputLeft}></input>
+                        <input style={itemRight}></input>
+                        </div>
                     </div>
                 </div>
             </>
